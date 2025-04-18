@@ -964,6 +964,44 @@ require('lazy').setup({
       vim.g.vimtex_view_method = 'zathura'
     end,
   },
+  'micangl/cmp-vimtex',
+  {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      local cmp = require 'cmp'
+      cmp.setup {
+        sources = {
+          { name = 'buffer' },
+        },
+        mapping = {
+          ['<Up>'] = cmp.mapping(function()
+            cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+          end, { 'i' }),
+          ['<Down>'] = cmp.mapping(function()
+            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+          end, { 'i' }),
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+            if cmp.visible() then
+              local entry = cmp.get_selected_entry()
+              if not entry then
+                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+              end
+              cmp.confirm()
+            else
+              fallback()
+            end
+          end, { 'i', 's', 'c' }),
+        },
+      }
+      cmp.setup.filetype('tex', {
+        sources = {
+          { name = 'vimtex' },
+          { name = 'buffer' },
+        },
+      })
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
