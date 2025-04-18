@@ -959,6 +959,12 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
   {
+    'preservim/nerdtree',
+    config = function()
+      vim.keymap.set('n', '<leader>e', vim.cmd.NERDTree, { desc = '[E]xplore Files using NERDTree' })
+    end,
+  },
+  {
     'lervag/vimtex',
     lazy = false, -- we don't want to lazy load VimTeX
     -- tag = "v2.15", -- uncomment to pin to a specific release
