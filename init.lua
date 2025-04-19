@@ -972,6 +972,7 @@ require('lazy').setup({
     init = function()
       -- VimTeX configuration goes here, e.g.
       vim.g.vimtex_view_general_viewer = 'open'
+      vim.g.vimtex_compiler_latexmk = { continuous = 0 }
     end,
   },
   'micangl/cmp-vimtex',
